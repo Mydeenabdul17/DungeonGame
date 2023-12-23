@@ -28,4 +28,12 @@ public class DungeonGameRepository {
 	public int getY() {
 		return dungeonArea[0].length;
 	}
+
+	public void addPit(int pX, int pY) {
+		dungeonArea[pX-1][pY-1]=1;
+	}
+
+	public int[][] getArea() {
+		return dungeonArea;
+	}
 }
