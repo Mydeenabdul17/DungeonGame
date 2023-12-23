@@ -22,11 +22,14 @@ public class DungeonGameView {
 		System.out.println("Enter the position of Monster with sapce");
 		int mX = sc.nextInt();
 		int mY = sc.nextInt();
+		System.out.println("Enter the position of Trigger with sapce");
+		int tX = sc.nextInt();
+		int tY = sc.nextInt();
 		System.out.println("Enter the position of Gold with sapce");
 		int gX = sc.nextInt();
 		int gY = sc.nextInt();
 		model.createArea(x,y);
-		model.findStepsCount(aX,aY,gX,gY,mX,mY);
+		model.findStepsCount(aX,aY,gX,gY,mX,mY,tX,tY);
 	}
 	public void steps(int steps) {
 		System.out.println(steps);

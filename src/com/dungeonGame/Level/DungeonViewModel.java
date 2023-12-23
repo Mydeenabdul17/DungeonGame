@@ -15,14 +15,16 @@ public class DungeonViewModel {
 		DungeonGameRepository.getInstance().createArea(x,y);
 	}
 	
-	public void findStepsCount(int aX,int aY,int gX,int gY, int mX, int mY) {
+	public void findStepsCount(int aX,int aY,int gX,int gY, int mX, int mY, int tX, int tY) {
 		if(mX==aX&&mY==aY) {
 			dungeonGameView.notPosible();
 		}
 		else if(isValid(aX,aY)&&isValid(gX,gY)&&isValid(mX, mY)) {
 			if((Math.abs(aX-gX)+Math.abs(aY-gY))<=Math.abs(mX-gX)+Math.abs(mY-gY)) {
 				dungeonGameView.steps(Math.abs(aX-gX)+Math.abs(aY-gY));
-				findSteps(aX,aY,gX,gY,mX,mY);
+//				findSteps(aX,aY,gX,gY,mX,mY);
+			}else if((Math.abs(aX-tX)+Math.abs(aY-tY))<=Math.abs(mX-gX)+Math.abs(mY-gY)){
+				dungeonGameView.steps(Math.abs(aX-tX)+Math.abs(aY-tY)+Math.abs(tX-gX)+Math.abs(tY-gY));
 			}else {
 				dungeonGameView.notPosible();
 			}
