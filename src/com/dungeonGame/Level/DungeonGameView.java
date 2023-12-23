@@ -20,6 +20,9 @@ public class DungeonGameView {
 		System.out.println("Enter the position of Adventure with sapce");
 		int aX = sc.nextInt();
 		int aY = sc.nextInt();
+		System.out.println("Enter the position of Monster with sapce");
+		int mX = sc.nextInt();
+		int mY = sc.nextInt();
 		System.out.println("Enter the position of Gold with sapce");
 		int gX = sc.nextInt();
 		int gY = sc.nextInt();
@@ -32,7 +35,7 @@ public class DungeonGameView {
 			int pY = sc.nextInt();
 			model.addPit(pX,pY);
 		}
-		model.findStepsCount(aX,aY,gX,gY);
+		model.findStepsCount(aX,aY,gX,gY,mX,mY);
 	}
 	public void steps(int steps) {
 		System.out.println(steps);
