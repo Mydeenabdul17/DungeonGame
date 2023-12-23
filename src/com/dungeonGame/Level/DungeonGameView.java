@@ -18,17 +18,23 @@ public class DungeonGameView {
 		System.out.println("Enter the position of Adventure with sapce");
 		int aX = sc.nextInt();
 		int aY = sc.nextInt();
+		System.out.println("Enter the position of Monster with sapce");
+		int mX = sc.nextInt();
+		int mY = sc.nextInt();
 		System.out.println("Enter the position of Gold with sapce");
 		int gX = sc.nextInt();
 		int gY = sc.nextInt();
 		model.createArea(x,y);
-		model.findSteps(aX,aY,gX,gY);
+		model.findSteps(aX,aY,gX,gY,mX,mY);
 	}
 	public void steps(int steps) {
 		System.out.println(steps);
 	}
 	public void inValid() {
 		System.out.println("Position Invalid");
+	}
+	public void notPosible() {
+		System.out.println("No Posible Solution");
 	}
 	
 }
