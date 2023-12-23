@@ -1,5 +1,6 @@
 package com.dungeonGame.Level;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class DungeonGameView {
@@ -25,7 +26,7 @@ public class DungeonGameView {
 		int gX = sc.nextInt();
 		int gY = sc.nextInt();
 		model.createArea(x,y);
-		model.findSteps(aX,aY,gX,gY,mX,mY);
+		model.findStepsCount(aX,aY,gX,gY,mX,mY);
 	}
 	public void steps(int steps) {
 		System.out.println(steps);
@@ -35,6 +36,9 @@ public class DungeonGameView {
 	}
 	public void notPosible() {
 		System.out.println("No Posible Solution");
+	}
+	public void validPath(List<List<Integer>> res) {
+		System.out.println(res);
 	}
 	
 }
