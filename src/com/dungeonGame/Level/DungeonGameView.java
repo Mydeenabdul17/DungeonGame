@@ -52,4 +52,10 @@ public class DungeonGameView {
 	public void validPath(List<List<Integer>> res) {
 		System.out.println(res);
 	}
+	public void steps(String s,List<int[]> stepsAG) {
+		System.out.println(s);
+		for (int[] is : stepsAG) {
+			System.out.println(Arrays.toString(is));
+		}
+	}
 }

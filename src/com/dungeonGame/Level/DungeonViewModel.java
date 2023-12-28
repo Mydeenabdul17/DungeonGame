@@ -39,15 +39,20 @@ public class DungeonViewModel {
 //		}
 		if (isValid(aX, aY) && isValid(gX, gY) && isValid(mX, mY)) {
 			int[][] area = DungeonGameRepository.getInstance().getArea();
-			int steps = findCount(area, aX - 1, aY - 1, gX - 1, gY - 1);
-			if (steps != -1) {
-				if (steps <= Math.abs(mX - gX) + Math.abs(mY - gY))
-					dungeonGameView.steps(steps);
+			List<int[]> stepsAG = findCount(area, aX - 1, aY - 1, gX - 1, gY - 1);
+			if (stepsAG != null) {
+				if (stepsAG.size() <= Math.abs(mX - gX) + Math.abs(mY - gY)) {
+					dungeonGameView.steps(stepsAG.size());
+					dungeonGameView.steps("A=>G",stepsAG);
+				}
+					
 				else {
-					int tSteps = findCount(area, aX - 1, aY - 1, tX - 1, tY - 1);
-					int gSteps = findCount(area, tX - 1, tY - 1, gX - 1, gY - 1);
-					if (gSteps != -1) {
-						dungeonGameView.steps(tSteps + gSteps);
+					List<int[]> tSteps = findCount(area, aX - 1, aY - 1, tX - 1, tY - 1);
+					List<int[]> gSteps = findCount(area, tX - 1, tY - 1, gX - 1, gY - 1);
+					if (gSteps != null) {
+						dungeonGameView.steps(tSteps.size() + gSteps.size()-2);
+						dungeonGameView.steps("A=>T",tSteps);
+						dungeonGameView.steps("T=>G",gSteps);
 					} else
 						dungeonGameView.notPosible();
 				}
@@ -60,41 +65,50 @@ public class DungeonViewModel {
 		}
 	}
 
-	private int findCount(int[][] grid, int aX, int aY, int gX, int gY) {
+	private List<int[]> findCount(int[][] grid, int aX, int aY, int gX, int gY) {
 		int[][] area = copyOf(grid);
 
-		Queue<int[]> queue = new LinkedList<>();
-		queue.add(new int[] { aX, aY, 0 });
+		Queue<List<int[]>> queue = new LinkedList<>();
+		List<int[]> l= new ArrayList<>();
+		l.add(new int[] { aX, aY});
+		queue.offer(l);
 		
 		while (!queue.isEmpty()) {
-			int[] current = queue.poll();
-			int x = current[0];
-			int y = current[1];
-			int distance = current[2];
+			List<int[]> current = queue.poll();
+			int x = current.get(current.size()-1)[0];
+			int y = current.get(current.size()-1)[1];
 			if (x == gX && y == gY) {
-				return distance;
+				return current;
 			}
 			if (isValidMove(x - 1, y, area)) {
-				queue.add(new int[] { x - 1, y, distance + 1 });
+				List<int[]> temp =new ArrayList<>(current);
+				temp.add(new int[] { x - 1, y});
+				queue.offer(temp);
 				area[x - 1][y] = 1;
 			}
 			if (isValidMove(x + 1, y, area)) {
-				queue.add(new int[] { x + 1, y, distance + 1 });
+				List<int[]> temp =new ArrayList<>(current);
+				temp.add(new int[] { x + 1, y});
+				queue.offer(temp);
 				area[x + 1][y] = 1;
 			}
 			if (isValidMove(x, y - 1, area)) {
-				queue.add(new int[] { x, y - 1, distance + 1 });
+				List<int[]> temp =new ArrayList<>(current);
+				temp.add(new int[] { x , y-1});
+				queue.offer(temp);
 				area[x][y - 1] = 1;
 			}
 			if (isValidMove(x, y + 1, area)) {
-				queue.add(new int[] { x, y + 1, distance + 1 });
+				List<int[]> temp =new ArrayList<>(current);
+				temp.add(new int[] { x , y+1});
+				queue.offer(temp);
 				area[x][y + 1] = 1;
 			}
 			
 		}
 
 		// No path found
-		return -1;
+		return null;
 
 	}
 
